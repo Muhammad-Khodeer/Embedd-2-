@@ -1,0 +1,509 @@
+
+I2C.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000274  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000003  00800060  00800060  000002e8  2**0
+                  ALLOC
+  2 .comment      00000030  00000000  00000000  000002e8  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 000000e8  00000000  00000000  00000318  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000767  00000000  00000000  00000400  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000004a3  00000000  00000000  00000b67  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000502  00000000  00000000  0000100a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  0000019c  00000000  00000000  0000150c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000002b2  00000000  00000000  000016a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000294  00000000  00000000  0000195a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000098  00000000  00000000  00001bee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 c9 00 	jmp	0x192	; 0x192 <__vector_11>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a3 36       	cpi	r26, 0x63	; 99
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 6d 00 	call	0xda	; 0xda <main>
+  74:	0c 94 38 01 	jmp	0x270	; 0x270 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <init_EEPROM>:
+
+
+/************** Function 1 **********************/
+void init_EEPROM(void)
+{	
+	statusRegister_0;
+  7c:	11 b8       	out	0x01, r1	; 1
+	bitRate_47;
+  7e:	87 e4       	ldi	r24, 0x47	; 71
+  80:	80 b9       	out	0x00, r24	; 0
+	I2C_Enable;
+  82:	84 e0       	ldi	r24, 0x04	; 4
+  84:	86 bf       	out	0x36, r24	; 54
+  86:	08 95       	ret
+
+00000088 <EEPROM_Read>:
+}
+/************* function 2 **********************/
+u8 EEPROM_Read(u8 Address)
+{
+  88:	cf 93       	push	r28
+  8a:	c8 2f       	mov	r28, r24
+	i2c_start();				// Start another data transfer
+  8c:	0e 94 b5 00 	call	0x16a	; 0x16a <i2c_start>
+	i2c_write(0b10100000);		// Write mode // the add of the slave and 0 for write
+  90:	80 ea       	ldi	r24, 0xA0	; 160
+  92:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	i2c_write(Address);		    // Write address // write the addressee that i want to read data from
+  96:	8c 2f       	mov	r24, r28
+  98:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	i2c_start();				// repeat Start //repeat bit
+  9c:	0e 94 b5 00 	call	0x16a	; 0x16a <i2c_start>
+	i2c_write(0b10100001);		// Read mode // the addressee of the salve and 1 for read mode
+  a0:	81 ea       	ldi	r24, 0xA1	; 161
+  a2:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	u8 x = i2c_read(1);			// Read the Data and write the Ackcnolagement by 1 >> last thing to read 0>>readmore
+  a6:	81 e0       	ldi	r24, 0x01	; 1
+  a8:	0e 94 a2 00 	call	0x144	; 0x144 <i2c_read>
+  ac:	c8 2f       	mov	r28, r24
+	i2c_stop();					// Stop the reading session
+  ae:	0e 94 bb 00 	call	0x176	; 0x176 <i2c_stop>
+	
+	return x; 
+}
+  b2:	8c 2f       	mov	r24, r28
+  b4:	cf 91       	pop	r28
+  b6:	08 95       	ret
+
+000000b8 <EEPROM_Write>:
+
+void EEPROM_Write(u8 Address ,u8 Data)
+{
+  b8:	cf 93       	push	r28
+  ba:	c6 2f       	mov	r28, r22
+	i2c_start();			// Start session
+  bc:	0e 94 b5 00 	call	0x16a	; 0x16a <i2c_start>
+	i2c_write(0b10100000);	// Write Mode //write the address // A000  EEPROM address + 0 for write
+  c0:	80 ea       	ldi	r24, 0xA0	; 160
+  c2:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	i2c_write(0b00000000);	    // Write Address // write the first address in the EEPROM
+  c6:	80 e0       	ldi	r24, 0x00	; 0
+  c8:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	i2c_write(Data);		// Store Data 0x15 //Write the data at add 0
+  cc:	8c 2f       	mov	r24, r28
+  ce:	0e 94 ae 00 	call	0x15c	; 0x15c <i2c_write>
+	i2c_stop(); 			// finish write Operation
+  d2:	0e 94 bb 00 	call	0x176	; 0x176 <i2c_stop>
+}
+  d6:	cf 91       	pop	r28
+  d8:	08 95       	ret
+
+000000da <main>:
+	///////////////// Local variables ///////////////////////
+	unsigned char MyValue=0 ;
+//	unsigned short int i;
+	
+	///////////////// initialization ///////////////////////
+	OStime_start();
+  da:	0e 94 be 00 	call	0x17c	; 0x17c <OStime_start>
+	init_SSEG();
+  de:	0e 94 ef 00 	call	0x1de	; 0x1de <init_SSEG>
+	//init_LED4();
+	init_EEPROM();
+  e2:	0e 94 3e 00 	call	0x7c	; 0x7c <init_EEPROM>
+		_delay_ms(500);
+		//LED4_OFF();
+		_delay_ms(500);
+	}*/
+	
+	SSEG_Print99(91);					// Printing 91 using one function
+  e6:	8b e5       	ldi	r24, 0x5B	; 91
+  e8:	0e 94 08 01 	call	0x210	; 0x210 <SSEG_Print99>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ec:	2f e7       	ldi	r18, 0x7F	; 127
+  ee:	8a e1       	ldi	r24, 0x1A	; 26
+  f0:	96 e0       	ldi	r25, 0x06	; 6
+  f2:	21 50       	subi	r18, 0x01	; 1
+  f4:	80 40       	sbci	r24, 0x00	; 0
+  f6:	90 40       	sbci	r25, 0x00	; 0
+  f8:	e1 f7       	brne	.-8      	; 0xf2 <main+0x18>
+  fa:	00 c0       	rjmp	.+0      	; 0xfc <main+0x22>
+  fc:	00 00       	nop
+	_delay_ms(2000);					// normal delay
+	SSEG_Print99(34);					// Printing 34
+  fe:	82 e2       	ldi	r24, 0x22	; 34
+ 100:	0e 94 08 01 	call	0x210	; 0x210 <SSEG_Print99>
+ 104:	2f e7       	ldi	r18, 0x7F	; 127
+ 106:	8a e1       	ldi	r24, 0x1A	; 26
+ 108:	96 e0       	ldi	r25, 0x06	; 6
+ 10a:	21 50       	subi	r18, 0x01	; 1
+ 10c:	80 40       	sbci	r24, 0x00	; 0
+ 10e:	90 40       	sbci	r25, 0x00	; 0
+ 110:	e1 f7       	brne	.-8      	; 0x10a <main+0x30>
+ 112:	00 c0       	rjmp	.+0      	; 0x114 <main+0x3a>
+ 114:	00 00       	nop
+	_delay_ms(2000);
+	//LED_ON();
+	
+	MyValue = EEPROM_Read(0);			//read value at address zero.
+ 116:	80 e0       	ldi	r24, 0x00	; 0
+ 118:	0e 94 44 00 	call	0x88	; 0x88 <EEPROM_Read>
+ 11c:	c8 2f       	mov	r28, r24
+	if (MyValue > 99)					// note: because at the first time the addressee 0 will have the value FF
+ 11e:	84 36       	cpi	r24, 0x64	; 100
+ 120:	60 f4       	brcc	.+24     	; 0x13a <main+0x60>
+	{	
+		MyValue=0;
+	}
+	
+	SSEG_Print99(MyValue);
+ 122:	0e 94 08 01 	call	0x210	; 0x210 <SSEG_Print99>
+	
+	if (MyValue < 99)					//note : the value can't be bigger than 99.
+ 126:	c3 36       	cpi	r28, 0x63	; 99
+ 128:	08 f0       	brcs	.+2      	; 0x12c <main+0x52>
+ 12a:	06 c0       	rjmp	.+12     	; 0x138 <main+0x5e>
+	{ 
+		MyValue++;						//increase the value by one that means the APP is opened Again.
+ 12c:	61 e0       	ldi	r22, 0x01	; 1
+ 12e:	6c 0f       	add	r22, r28
+		EEPROM_Write(0,MyValue);		//save the new value at EEPROM.		
+ 130:	80 e0       	ldi	r24, 0x00	; 0
+ 132:	0e 94 5c 00 	call	0xb8	; 0xb8 <EEPROM_Write>
+ 136:	f9 cf       	rjmp	.-14     	; 0x12a <main+0x50>
+ 138:	ff cf       	rjmp	.-2      	; 0x138 <main+0x5e>
+	if (MyValue > 99)					// note: because at the first time the addressee 0 will have the value FF
+	{	
+		MyValue=0;
+	}
+	
+	SSEG_Print99(MyValue);
+ 13a:	80 e0       	ldi	r24, 0x00	; 0
+ 13c:	0e 94 08 01 	call	0x210	; 0x210 <SSEG_Print99>
+	//LED_ON();
+	
+	MyValue = EEPROM_Read(0);			//read value at address zero.
+	if (MyValue > 99)					// note: because at the first time the addressee 0 will have the value FF
+	{	
+		MyValue=0;
+ 140:	c0 e0       	ldi	r28, 0x00	; 0
+ 142:	f4 cf       	rjmp	.-24     	; 0x12c <main+0x52>
+
+00000144 <i2c_read>:
+
+#include "MYMICRO.h"
+ 
+u8 i2c_read(u8 isLast)
+{
+	if(isLast == 0)
+ 144:	81 11       	cpse	r24, r1
+ 146:	03 c0       	rjmp	.+6      	; 0x14e <i2c_read+0xa>
+	{
+		TWCR = (1<< TWINT) | (1<< TWEN) | (1<< TWEA) ;
+ 148:	84 ec       	ldi	r24, 0xC4	; 196
+ 14a:	86 bf       	out	0x36, r24	; 54
+ 14c:	02 c0       	rjmp	.+4      	; 0x152 <i2c_read+0xe>
+	}
+	else
+	{
+		TWCR = (1<< TWINT) | (1<< TWEN) ;
+ 14e:	84 e8       	ldi	r24, 0x84	; 132
+ 150:	86 bf       	out	0x36, r24	; 54
+	}
+	while((TWCR & (1 << TWINT)) == 0);
+ 152:	06 b6       	in	r0, 0x36	; 54
+ 154:	07 fe       	sbrs	r0, 7
+ 156:	fd cf       	rjmp	.-6      	; 0x152 <i2c_read+0xe>
+	return TWDR;
+ 158:	83 b1       	in	r24, 0x03	; 3
+}
+ 15a:	08 95       	ret
+
+0000015c <i2c_write>:
+
+void i2c_write(u8 data)
+{
+	TWDR = data;
+ 15c:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 15e:	84 e8       	ldi	r24, 0x84	; 132
+ 160:	86 bf       	out	0x36, r24	; 54
+	while((TWCR & (1 << TWINT)) == 0 );
+ 162:	06 b6       	in	r0, 0x36	; 54
+ 164:	07 fe       	sbrs	r0, 7
+ 166:	fd cf       	rjmp	.-6      	; 0x162 <i2c_write+0x6>
+
+}
+ 168:	08 95       	ret
+
+0000016a <i2c_start>:
+
+void i2c_start(void) // to send the start bit
+{
+	TWCR = (1<< TWINT) | (1<<TWSTA) | (1<<TWEN); // control Register >> start >> write 1>>tagle to start
+ 16a:	84 ea       	ldi	r24, 0xA4	; 164
+ 16c:	86 bf       	out	0x36, r24	; 54
+	while(!(TWCR & (1 << TWINT))); 		     // while sending it is 0 >> wait until it become 1
+ 16e:	06 b6       	in	r0, 0x36	; 54
+ 170:	07 fe       	sbrs	r0, 7
+ 172:	fd cf       	rjmp	.-6      	; 0x16e <i2c_start+0x4>
+	//((TWCR & (1 << TWINT)) == 0)
+}
+ 174:	08 95       	ret
+
+00000176 <i2c_stop>:
+
+void i2c_stop()
+{
+	TWCR = (1<< TWINT) | (1<< TWEN) | (1<< TWSTO) ;
+ 176:	84 e9       	ldi	r24, 0x94	; 148
+ 178:	86 bf       	out	0x36, r24	; 54
+ 17a:	08 95       	ret
+
+0000017c <OStime_start>:
+#include "SSEG.h"
+#include "MYMICRO.h"
+
+void OStime_start(void)				/************ initialization OS ************/ 
+{
+	Enable_OverFlow_Timer0;          // Enable overflow interrupt    [timer/counter 0]
+ 17c:	89 b7       	in	r24, 0x39	; 57
+ 17e:	81 60       	ori	r24, 0x01	; 1
+ 180:	89 bf       	out	0x39, r24	; 57
+	Start_With_Speed_Type1;			 // Start timer at FCPU/64
+ 182:	83 b7       	in	r24, 0x33	; 51
+ 184:	81 60       	ori	r24, 0x01	; 1
+ 186:	83 bf       	out	0x33, r24	; 51
+ 188:	83 b7       	in	r24, 0x33	; 51
+ 18a:	8d 7f       	andi	r24, 0xFD	; 253
+ 18c:	83 bf       	out	0x33, r24	; 51
+	Enable_GlobalInterrupt;          // Enable the global interrupt
+ 18e:	78 94       	sei
+ 190:	08 95       	ret
+
+00000192 <__vector_11>:
+}
+
+
+ISR(TIMER0_OVF_vect)               /****** interrupt service routine ***********/
+{
+ 192:	1f 92       	push	r1
+ 194:	0f 92       	push	r0
+ 196:	0f b6       	in	r0, 0x3f	; 63
+ 198:	0f 92       	push	r0
+ 19a:	11 24       	eor	r1, r1
+ 19c:	2f 93       	push	r18
+ 19e:	3f 93       	push	r19
+ 1a0:	4f 93       	push	r20
+ 1a2:	5f 93       	push	r21
+ 1a4:	6f 93       	push	r22
+ 1a6:	7f 93       	push	r23
+ 1a8:	8f 93       	push	r24
+ 1aa:	9f 93       	push	r25
+ 1ac:	af 93       	push	r26
+ 1ae:	bf 93       	push	r27
+ 1b0:	ef 93       	push	r30
+ 1b2:	ff 93       	push	r31
+	SSEG_cyclic10ms();     // this function will be called every 5ms by Timer0 interrupt
+ 1b4:	0e 94 0b 01 	call	0x216	; 0x216 <SSEG_cyclic10ms>
+	Start_Count = 99;	/* load the timer register to fire each 10 ms (it will start 
+ 1b8:	83 e6       	ldi	r24, 0x63	; 99
+ 1ba:	82 bf       	out	0x32, r24	; 50
+					       with 99 until reaching 255 and then interrupt will take place)
+						   To calculate the time (255 - 99) = 156 the counts remaining 
+						   for the timer to overflow and since there is a prescaler FCPU/64 
+						   then to calcualte the time:156*64 = 10000 microseconds = 10 milliseconds */
+}
+ 1bc:	ff 91       	pop	r31
+ 1be:	ef 91       	pop	r30
+ 1c0:	bf 91       	pop	r27
+ 1c2:	af 91       	pop	r26
+ 1c4:	9f 91       	pop	r25
+ 1c6:	8f 91       	pop	r24
+ 1c8:	7f 91       	pop	r23
+ 1ca:	6f 91       	pop	r22
+ 1cc:	5f 91       	pop	r21
+ 1ce:	4f 91       	pop	r20
+ 1d0:	3f 91       	pop	r19
+ 1d2:	2f 91       	pop	r18
+ 1d4:	0f 90       	pop	r0
+ 1d6:	0f be       	out	0x3f, r0	; 63
+ 1d8:	0f 90       	pop	r0
+ 1da:	1f 90       	pop	r1
+ 1dc:	18 95       	reti
+
+000001de <init_SSEG>:
+uint8_t StartSSEG = 0;
+///////////////////////////////////////////////
+
+void init_SSEG(void)
+{
+	SSEG_Init;
+ 1de:	d4 9a       	sbi	0x1a, 4	; 26
+ 1e0:	d5 9a       	sbi	0x1a, 5	; 26
+ 1e2:	87 b3       	in	r24, 0x17	; 23
+ 1e4:	80 6f       	ori	r24, 0xF0	; 240
+ 1e6:	87 bb       	out	0x17, r24	; 23
+	StartSSEG = 1;    // a flag of set it enable the SSEG to work By the OS
+ 1e8:	81 e0       	ldi	r24, 0x01	; 1
+ 1ea:	80 93 61 00 	sts	0x0061, r24
+ 1ee:	08 95       	ret
+
+000001f0 <SSEG_Print9>:
+}
+
+// function to print one digit number
+void SSEG_Print9(POS Position,unsigned char num)  // take two parameter the one digit num & its position.
+{
+	SSEG_PINS(num); /* PORTB = (num<<4); */       // load the number to the 4 pins [HW-Design].
+ 1f0:	98 b3       	in	r25, 0x18	; 24
+ 1f2:	20 e1       	ldi	r18, 0x10	; 16
+ 1f4:	62 9f       	mul	r22, r18
+ 1f6:	b0 01       	movw	r22, r0
+ 1f8:	11 24       	eor	r1, r1
+ 1fa:	9f 70       	andi	r25, 0x0F	; 15
+ 1fc:	69 2b       	or	r22, r25
+ 1fe:	68 bb       	out	0x18, r22	; 24
+	if(Position == LEFT)
+ 200:	81 30       	cpi	r24, 0x01	; 1
+ 202:	19 f4       	brne	.+6      	; 0x20a <SSEG_Print9+0x1a>
+	{
+		EN_LEFT_SEG;                              // display at left if the position is left.
+ 204:	dd 98       	cbi	0x1b, 5	; 27
+ 206:	dc 9a       	sbi	0x1b, 4	; 27
+ 208:	08 95       	ret
+	}
+	else
+	{
+		EN_RIGHT_SEG;                             // display at Right if the position is Right.
+ 20a:	dc 98       	cbi	0x1b, 4	; 27
+ 20c:	dd 9a       	sbi	0x1b, 5	; 27
+ 20e:	08 95       	ret
+
+00000210 <SSEG_Print99>:
+}
+
+// this function is called in the main just to get the number to be print
+void SSEG_Print99(unsigned char num)
+{
+	SSEG_NUM = num;                              // the number to be print
+ 210:	80 93 62 00 	sts	0x0062, r24
+ 214:	08 95       	ret
+
+00000216 <SSEG_cyclic10ms>:
+
+//// this cyclic should be called each 10ms from OS
+void SSEG_cyclic10ms(void)
+{												// static variable : the declaration and initialization
+	static unsigned char flag=0;				// will happen once at the first call.
+	if (StartSSEG)								// if this flag is set then the OS can Print
+ 216:	80 91 61 00 	lds	r24, 0x0061
+ 21a:	88 23       	and	r24, r24
+ 21c:	41 f1       	breq	.+80     	; 0x26e <SSEG_cyclic10ms+0x58>
+	{
+		if(flag)								// if flag == 1
+ 21e:	80 91 60 00 	lds	r24, 0x0060
+ 222:	88 23       	and	r24, r24
+ 224:	79 f0       	breq	.+30     	; 0x244 <SSEG_cyclic10ms+0x2e>
+		{
+			SSEG_Print9(LEFT,SSEG_NUM/10);      // print the left digit at left
+ 226:	60 91 62 00 	lds	r22, 0x0062
+ 22a:	8d ec       	ldi	r24, 0xCD	; 205
+ 22c:	68 9f       	mul	r22, r24
+ 22e:	61 2d       	mov	r22, r1
+ 230:	11 24       	eor	r1, r1
+ 232:	66 95       	lsr	r22
+ 234:	66 95       	lsr	r22
+ 236:	66 95       	lsr	r22
+ 238:	81 e0       	ldi	r24, 0x01	; 1
+ 23a:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SSEG_Print9>
+			flag = 0;
+ 23e:	10 92 60 00 	sts	0x0060, r1
+ 242:	08 95       	ret
+		}
+		else									// if flag == 0
+		{
+			SSEG_Print9(RIGHT,SSEG_NUM%10);     // print the Right digit at Right
+ 244:	60 91 62 00 	lds	r22, 0x0062
+ 248:	8d ec       	ldi	r24, 0xCD	; 205
+ 24a:	68 9f       	mul	r22, r24
+ 24c:	81 2d       	mov	r24, r1
+ 24e:	11 24       	eor	r1, r1
+ 250:	86 95       	lsr	r24
+ 252:	86 95       	lsr	r24
+ 254:	86 95       	lsr	r24
+ 256:	88 0f       	add	r24, r24
+ 258:	98 2f       	mov	r25, r24
+ 25a:	99 0f       	add	r25, r25
+ 25c:	99 0f       	add	r25, r25
+ 25e:	89 0f       	add	r24, r25
+ 260:	68 1b       	sub	r22, r24
+ 262:	80 e0       	ldi	r24, 0x00	; 0
+ 264:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SSEG_Print9>
+			flag = 1;
+ 268:	81 e0       	ldi	r24, 0x01	; 1
+ 26a:	80 93 60 00 	sts	0x0060, r24
+ 26e:	08 95       	ret
+
+00000270 <_exit>:
+ 270:	f8 94       	cli
+
+00000272 <__stop_program>:
+ 272:	ff cf       	rjmp	.-2      	; 0x272 <__stop_program>
